@@ -8,17 +8,20 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Tahoma, Arial, sans-serif; background: #f4f7f5; color: #333; line-height: 1.6; }
     
+    /* الترويسة الرسمية */
     .top-bar { background: linear-gradient(135deg, #1b5e20, #2e7d32); color: #fff; padding: 20px 15px; text-align: center; border-bottom: 4px solid #c59b27; }
     .azhar-badge { font-size: 13px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
     .portal-title { font-size: 22px; font-weight: bold; margin-bottom: 4px; }
     .sub-title { font-size: 14px; opacity: 0.9; }
     .admin-info { margin-top: 10px; font-size: 13px; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; }
 
+    /* شريط التنقل (التبويبات) */
     .nav-tabs { display: flex; justify-content: center; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
     .tab-btn { padding: 14px 18px; border: none; background: none; font-family: inherit; font-size: 14px; font-weight: bold; color: #555; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; }
     .tab-btn:hover { color: #1b5e20; background: #f9fbf9; }
     .tab-btn.active { color: #1b5e20; border-bottom: 3px solid #1b5e20; background: #e8f5e9; }
 
+    /* الحاوية الرئيسية */
     .container { max-width: 650px; margin: 20px auto; padding: 0 15px; }
     .section { display: none; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); animation: fadeIn 0.3s ease; }
     .section.active { display: block; }
@@ -26,25 +29,36 @@
 
     h3 { color: #1b5e20; margin-bottom: 15px; border-right: 4px solid #c59b27; padding-right: 10px; font-size: 18px; }
 
+    /* قسم أرقام الجلوس */
     input[type="text"], select { width: 100%; padding: 12px; margin: 10px 0 15px 0; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 15px; font-family: inherit; text-align: center; }
     input[type="text"]:focus, select:focus { border-color: #1b5e20; outline: none; }
     .student-card { background: #f1f8e9; border: 1px solid #c8e6c9; border-right: 5px solid #1b5e20; padding: 15px; border-radius: 8px; margin-top: 12px; text-align: right; line-height: 1.9; }
     .error-msg { color: #c62828; text-align: center; font-weight: bold; margin-top: 10px; }
 
+    /* قسم الجداول */
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: center; font-size: 14px; }
+    th { background: #1b5e20; color: #fff; padding: 10px; }
+    td { border: 1px solid #ddd; padding: 10px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+
+    /* قسم الإعلانات */
     .news-item { border-bottom: 1px solid #eee; padding: 12px 0; }
     .news-item:last-child { border-bottom: none; }
     .news-date { font-size: 12px; color: #888; }
     .news-title { font-weight: bold; color: #1b5e20; margin: 3px 0; }
 
+    /* قسم النتائج (قريباً) */
     .coming-soon { text-align: center; padding: 30px 10px; }
     .badge-soon { background: #fff8e1; color: #b78a28; border: 1px solid #ffe082; padding: 6px 16px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
 
+    /* التذييل */
     .footer { text-align: center; margin: 30px 0 20px; font-size: 13px; color: #666; line-height: 1.8; }
     .dev-credit { color: #1b5e20; font-weight: bold; }
   </style>
 </head>
 <body>
 
+  <!-- الترويسة -->
   <div class="top-bar">
     <div class="azhar-badge">الأزهر الشريف - منطقة الجيزة الأزهرية</div>
     <div class="portal-title">البوابة الرقمية لمعهد فتيات البدرشين</div>
@@ -52,6 +66,7 @@
     <div class="admin-info">عميدة المعهد: أ. مروة إدريس</div>
   </div>
 
+  <!-- أزرار التنقل -->
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="openTab('seats', this)">أرقام الجلوس</button>
     <button class="tab-btn" onclick="openTab('schedules', this)">الجداول</button>
@@ -61,6 +76,7 @@
 
   <div class="container">
 
+    <!-- 1. قسم أرقام الجلوس -->
     <div id="seats" class="section active">
       <h3>الاستعلام عن أرقام الجلوس واللجان</h3>
       <p style="font-size: 14px; color: #555;">اكتبي 3 حروف على الأقل من اسم الطالبة للبحث الفوري:</p>
@@ -68,21 +84,22 @@
       <div id="searchResults"></div>
     </div>
 
+    <!-- 2. قسم الجداول -->
     <div id="schedules" class="section">
       <h3>جداول الحصص والامتحانات</h3>
-      <p style="font-size: 14px; color: #555;">اختاري الصف الدراسي والشعبة لعرض الجدول المعتمد:</p>
+      <p style="font-size: 14px; color: #555;">اختاري الصف الدراسي لعرض الجدول المعتمد:</p>
       <select id="gradeSelect" onchange="showSchedule()">
-        <option value="">-- اختاري الصف الدراسي والشعبة --</option>
+        <option value="">-- اختاري الصف الدراسي --</option>
         <option value="prep1">الصف الأول الإعدادي</option>
         <option value="prep2">الصف الثاني الإعدادي</option>
         <option value="prep3">الصف الثالث الإعدادي</option>
         <option value="sec1">الصف الأول الثانوي</option>
-        <option value="sec2_sci">الصف الثاني الثانوي (علمي)</option>
-        <option value="sec2_lit">الصف الثاني الثانوي (أدبي)</option>
+        <option value="sec2">الصف الثاني الثانوي</option>
       </select>
       <div id="scheduleDisplay"></div>
     </div>
 
+    <!-- 3. قسم الإعلانات -->
     <div id="news" class="section">
       <h3>أحدث إعلانات وتعليمات المعهد</h3>
       <div class="news-item">
@@ -97,6 +114,7 @@
       </div>
     </div>
 
+    <!-- 4. قسم النتائج (قريباً) -->
     <div id="results" class="section">
       <div class="coming-soon">
         <div class="badge-soon">قريباً فور اعتماد النتائج</div>
@@ -107,12 +125,14 @@
 
   </div>
 
+  <!-- التذييل -->
   <div class="footer">
     <div>معهد فتيات البدرشين الإعدادي الثانوي - جميع الحقوق محفوظة © 2026</div>
     <div>تصميم وتطوير النظام: <span class="dev-credit">أ. وائل جمعة</span></div>
   </div>
 
   <script>
+    // التنقل بين التبويبات
     function openTab(tabId, btn) {
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -120,7 +140,7 @@
       btn.classList.add('active');
     }
 
-    // بيانات الطالبات
+    // بيانات الطالبات (الصق بيانات الإكسل هنا)
     const students = [
 { name: "اسراء ابراهيم سالم قطب فايد", seat: "1", room: "1", floor: "الأول" },
 { name: "اسراء ربيع محمد خليل", seat: "2", room: "1", floor: "الأول" },
@@ -552,23 +572,20 @@
       });
     }
 
-    // بيانات الجداول بالصور بصيغة jpeg
+    // بيانات الجداول (نموذج مبدئي قابل للتعديل)
     const schedulesData = {
-      prep1: `
-        <img src="prep1.jpeg" alt="جدول الصف الأول الإعدادي" style="width:100%; border-radius:8px; border:2px solid #c8e6c9; margin-top:10px;">
-        <a href="prep1.jpeg" download="جدول_الاول_الاعدادي" style="display:inline-block; margin-top:10px; background:#1b5e20; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">تحميل الجدول كصورة</a>
-      `,
-      prep2: `
-        <img src="prep2.jpeg" alt="جدول الصف الثاني الإعدادي" style="width:100%; border-radius:8px; border:2px solid #c8e6c9; margin-top:10px;">
-        <a href="prep2.jpeg" download="جدول_الثاني_الاعدادي" style="display:inline-block; margin-top:10px; background:#1b5e20; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">تحميل الجدول كصورة</a>
-      `,
-      prep3: `
-        <img src="prep3.jpeg" alt="جدول الصف الثالث الإعدادي" style="width:100%; border-radius:8px; border:2px solid #c8e6c9; margin-top:10px;">
-        <a href="prep3.jpeg" download="جدول_الثالث_الاعدادي" style="display:inline-block; margin-top:10px; background:#1b5e20; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">تحميل الجدول كصورة</a>
-      `,
-      sec1: `
-        <img src="sec1.jpeg" alt="جدول الصف الأول الثانوي" style="width:100%; border-radius:8px; border:2px solid #c8e6c9; margin-top:10px;">
-        <a href="sec1.jpeg" download="جدول_الاول_الثانوي" style="display:inline-block; margin-top:10px; background:#1b5e20; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">تحميل الجدول كصورة</a>
-      `,
-      sec2_sci: `
-        <img src="sec2-sci.jpeg" alt="جدول الصف الثاني الثانوي علمي" style="width:100%; border-radius:8px; border:2px solid #c8e6c9; margin-top:10px;">
+      prep1: `<table><tr><th>اليوم</th><th>المادة الأولى</th><th>المادة الثانية</th></tr><tr><td>السبت</td><td>الفقه</td><td>النحو والصرف</td></tr><tr><td>الأحد</td><td>القرآن الكريم</td><td>الرياضيات</td></tr></table>`,
+      prep2: `<table><tr><th>اليوم</th><th>المادة الأولى</th><th>المادة الثانية</th></tr><tr><td>السبت</td><td>التفسير والحديث</td><td>المطالعة والنصوص</td></tr><tr><td>الأحد</td><td>العلوم</td><td>اللغة الإنجليزية</td></tr></table>`,
+      prep3: `<p style="text-align:center; color:#1b5e20; font-weight:bold; margin-top:15px;">سيتم رفع جدول الشهادة الإعدادية فور وروده من المنطقة الأزهرية.</p>`,
+      sec1: `<p style="text-align:center; color:#1b5e20; font-weight:bold; margin-top:15px;">سيتم رفع جدول الصف الأول الثانوي فور اعتماده.</p>`,
+      sec2: `<p style="text-align:center; color:#1b5e20; font-weight:bold; margin-top:15px;">سيتم رفع جدول الصف الثاني الثانوي فور اعتماده.</p>`
+    };
+
+    function showSchedule() {
+      const grade = document.getElementById("gradeSelect").value;
+      document.getElementById("scheduleDisplay").innerHTML = schedulesData[grade] || "";
+    }
+  </script>
+
+</body>
+</html>
